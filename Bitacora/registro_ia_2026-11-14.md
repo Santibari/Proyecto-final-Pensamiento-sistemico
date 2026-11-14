@@ -83,6 +83,8 @@ Sesión: **Uso de IA – Claude Code** (Fase 1 y 1B del PLAN_IMPLEMENTACION.md)
 
 | 70 | 10:43 | Decisión | Redactar el README.md principal del repositorio | Claude Code | Contenido del repositorio, cómo funciona cada parte (datos, modelos Vensim, página web) y cómo ejecutarla | Acepta | Pedido del equipo; deja claro qué corresponde redactar al equipo y las limitaciones |
 
+| 71 | 10:45 | Decisión | Subir el trabajo a GitHub (pedido del usuario) | Claude Code / git | Rama `entrega-final`, commit 6302e23 con 104 archivos; se excluyen .claude, cachés, resultados .vdfx y carpetas __MACOSX. Se activó core.longpaths por rutas largas de los CSV DSA | Acepta | No se tocó `main`; queda pendiente pasar la rama a `main` si el equipo lo decide |
+
 ## Resumen de la sesión
 - **Logrado:** estructura `datos/` con 5 scripts reproducibles; 10 de 13 informes en `raw/` con SHA-256 en MANIFIESTO.csv; formato largo de 1.494 cifras con informe y página; validación (H1 2024: 8/8 cifras de control coinciden; 92/92 sumas por categoría cuadran); serie semanal; 88 indicadores clave; 6 gráficos; RESUMEN_DATOS.md; PLANTEAMIENTO_MODELO.md (fase 1B).
 - **Falló o quedó pendiente:** la descarga automática desde cdn.discordapp.com (la red corta la conexión); el usuario descargó a mano los 10 .zip. Faltan el PDF general 2026, el TCO 2026 y el ECA Brasil. El equipo decidió trabajar sin el informe 2026: sus cifras de control se descartaron y la reversión se recalibró a 2,39 % (entradas 38–39). Las tablas DSA por categoría no se procesaron.
