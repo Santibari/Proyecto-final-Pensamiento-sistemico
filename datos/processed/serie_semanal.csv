@@ -1,0 +1,13 @@
+﻿clave_informe,informe,periodo_inicio,periodo_fin,semanas_periodo,cuentas_deshabilitadas_spam_sem,cuentas_deshabilitadas_no_spam_sem,servidores_eliminados_no_spam_sem,advertencias_cuentas_no_spam_sem,reportes_formulario_web_no_spam_sem,reportes_spam_un_clic_sem,reportes_en_app_total_sem,reportes_en_app_manip_plataforma_sem,apelaciones_no_spam_sem,apelaciones_concedidas_no_spam_sem,pct_cuentas_que_apelan,pct_apelaciones_concedidas,pct_spam_deshabilitado_proactivo,dsa_quejas_internas_sem,dsa_quejas_revertidas_sem,reportes_en_app_sin_manip_plataforma_sem,nota
+Q4-2021,General Q4 2021 (citado),2021-10-01,2021-12-31,13.1429,1506132.51,85766.46,,,,,,,,,,,,,,,Solo totales citados en el informe del trimestre siguiente
+Q1-2022,General Q1 2022,2022-01-01,2022-03-31,12.8571,2023608.9,82005.9,3111.82,758.49,13876.69,1648948.75,,,8806.88,176.95,10.74,2.01,90.0,,,,
+Q2-2022,General Q2 2022,2022-04-01,2022-06-30,13.0,2133380.62,55904.54,2182.31,1043.23,11811.54,1087107.08,,,9439.54,56.38,16.89,0.6,90.0,,,,
+Q3-2022,General Q3 2022,2022-07-01,2022-09-30,13.1429,3843198.15,14133.56,2317.3,1355.03,10246.06,660861.61,,,2186.43,101.5,15.47,4.64,90.0,,,,
+Q4-2022,General Q4 2022 (citado),2022-10-01,2022-12-31,13.1429,2801903.92,11708.45,,,,,,,,,,,,,,,Solo totales citados en el informe del trimestre siguiente
+Q1-2023,General Q1 2023,2023-01-01,2023-03-31,12.8571,831749.38,13513.55,2695.71,1385.15,9103.3,468526.96,,,2965.99,60.51,21.95,2.04,99.0,,,,
+Q2-2023,General Q2 2023,2023-04-01,2023-06-30,13.0,613179.62,22635.0,4181.69,1482.08,14671.46,,920567.69,503451.69,2333.08,54.77,10.31,2.35,99.0,,,417116.0,; reportes en app: 'manipulación de plataforma' incluye todo el spam
+Q3-2023,General Q3 2023,2023-07-01,2023-09-30,13.1429,977390.53,19817.62,3179.51,4148.7,,,992491.69,493213.52,3524.72,88.49,17.79,2.51,99.0,,,499278.17,; reportes en app: 'manipulación de plataforma' incluye todo el spam
+Q4-2023,General Q4 2023,2023-10-01,2023-12-31,13.1429,2508843.03,19406.9,3866.27,4222.43,,,919293.0,463680.47,2570.21,62.47,13.24,2.43,99.0,,,455612.53,; reportes en app: 'manipulación de plataforma' incluye todo el spam
+H1-2024,General H1 2024,2024-01-01,2024-06-30,26.0,1363713.58,13732.92,1577.0,14036.12,,,1134435.12,583852.92,2534.65,65.58,1.85,2.59,,,,550582.2,pct_cuentas_que_apelan con base 'cuentas sancionadas distintas' (no comparable con 2022–2023); reportes en app: 'manipulación de plataforma' incluye todo el spam
+DSA-2024,DSA 2024 (UE),2024-02-17,2024-12-31,45.5714,,,,,,,,,,,,,,5861.94,959.26,,Solo UE; spam y no-spam mezclados
+DSA-2025,DSA 2025 (UE),2025-01-01,2025-12-31,52.1429,,,,,,,,,,,,,,6422.24,1.65,,Solo UE; spam y no-spam mezclados

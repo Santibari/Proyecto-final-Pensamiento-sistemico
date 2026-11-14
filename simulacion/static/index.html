@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulación Discord</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="cabecera">
+  <div>
+    <h1>¿Qué pasa cuando la IA de Discord modera una comunidad?</h1>
+    <p>Simulación de 104 semanas de una comunidad de 100.000 usuarios. Las ecuaciones son las del modelo de Vensim del proyecto, calibrado con los informes de transparencia de Discord.</p>
+  </div>
+  <details class="conexion">
+    <summary>Conexión con Vensim</summary>
+    <div id="conexionTexto"></div>
+    <button id="btnRecargar" class="sec">Volver a leer los .mdl</button>
+  </details>
+</header>
+
+<!-- 1. Escenarios -->
+<section class="escenarios" aria-label="Escenarios">
+  <button class="escenario activo" data-esc="hoy">
+    <span class="num">1</span><b>Situación actual</b>
+    <small>El filtro de IA detecta el 97,3 % del contenido nocivo (dato DSA 2025).</small>
+  </button>
+  <button class="escenario" data-esc="endurece">
+    <span class="num">2</span><b>Discord endurece el filtro</b>
+    <small>La sensibilidad sube de 0,973 a 0,99: se escapa menos contenido nocivo… ¿a qué costo?</small>
+  </button>
+  <button class="escenario" data-esc="personal">
+    <span class="num">3</span><b>Personalizado</b>
+    <small>Mueva los controles y compare.</small>
+  </button>
+</section>
+<section id="panelControles" class="panel oculto" aria-label="Controles personalizados">
+  <div id="controles"></div>
+</section>
+<p class="explica" id="explicaEscenario"></p>
+
+<!-- Reproductor -->
+<section class="reproductor" aria-label="Línea de tiempo">
+  <button id="btnReiniciar" class="sec" title="Volver a la semana 0">⟲ Semana 0</button>
+  <button id="btnPlay" class="pri">▶ Reproducir</button>
+  <button id="btnSemana" class="sec" title="Avanzar una semana">+1 semana</button>
+  <input type="range" id="linea" min="0" max="416" value="0" aria-label="Semana">
+  <span class="semana">Semana <b id="lblSemana">0</b> de 104</span>
+  <label class="vel">Velocidad
+    <select id="velocidad"><option value="2">lenta</option><option value="6" selected>normal</option><option value="16">rápida</option></select>
+  </label>
+</section>
+
+<main class="cuerpo">
+  <!-- Vista principal -->
+  <section class="panel vista">
+    <div class="pestanas">
+      <div class="grupo" role="tablist" aria-label="Vista">
+        <button class="tab activo" data-vista="diagrama">Diagrama de Vensim en vivo</button>
+        <button class="tab" data-vista="ciudad">Ciudad 3D</button>
+      </div>
+      <div class="grupo" role="tablist" aria-label="Modelo">
+        <button class="tab activo" data-modelo="actual"><i class="punto azul"></i>Modelo actual</button>
+        <button class="tab" data-modelo="mejora"><i class="punto naranja"></i>Modelo con mejora</button>
+      </div>
+    </div>
+    <div class="opciones" id="opcionesDiagrama">
+      <label><input type="checkbox" id="chkFlechas" checked> Flechas causales (+ / −)</label>
+      <label><input type="checkbox" id="chkConstantes"> Constantes</label>
+      <span class="ayudita">Pase el mouse sobre cualquier variable para ver qué es, su valor y de dónde sale.</span>
+    </div>
+    <div class="lienzoCaja">
+      <canvas id="lienzo"></canvas>
+      <div id="tooltip" class="tooltip" hidden></div>
+    </div>
+    <details class="queveo" id="queVeo" open>
+      <summary>¿Qué estoy viendo?</summary>
+      <div id="queVeoTexto"></div>
+    </details>
+  </section>
+
+  <!-- Datos en palabras -->
+  <aside class="panel palabras">
+    <h2>Esta semana, en palabras <small id="palabrasModelo"></small></h2>
+    <ul id="frases"></ul>
+    <h2>Comparación en la semana <span id="lblSemana2">0</span></h2>
+    <table class="tabla">
+      <thead><tr><th></th><th><i class="punto azul"></i>Actual</th><th><i class="punto naranja"></i>Mejora</th></tr></thead>
+      <tbody id="tablaComp"></tbody>
+    </table>
+  </aside>
+</main>
+
+<!-- Comparación -->
+<section class="panel graficos">
+  <h2>Modelo actual vs. modelo con mejora <small>· mismo escenario, mismas condiciones · clic en un gráfico para ir a esa semana</small></h2>
+  <div class="leyenda"><span><i class="linea azul"></i>Modelo actual</span><span><i class="linea naranja"></i>Modelo con mejora</span><span><i class="linea cursor"></i>Semana mostrada</span></div>
+  <div class="rejilla" id="rejilla"></div>
+</section>
+
+<footer>
+  Datos: Discord Transparency Reports 2022–2024 y DSA 2024–2025 (UE). Lo que no está en los informes es SUPUESTO y está marcado en cada variable.
+  La interpretación de los resultados corresponde al equipo del proyecto.
+</footer>
+<script src="/static/app.js"></script>
+</body>
+</html>

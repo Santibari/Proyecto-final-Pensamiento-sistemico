@@ -1,0 +1,89 @@
+﻿indicador,valor,periodo,formula,informe,pagina,nota
+cuentas_deshabilitadas_no_spam_semana,85766.46,Q4-2021,total no-spam / semanas,General Q4 2021 (citado),5,
+cuentas_deshabilitadas_spam_semana,1506132.51,Q4-2021,spam / semanas,General Q4 2021 (citado),6,
+fraccion_spam_deshabilitadas_pct,94.6123,Q4-2021,spam / (spam + no-spam) × 100,General Q4 2021 (citado),derivado,
+tasa_apelacion_no_spam_pct,10.74,Q1-2022,apelaciones / base de cuentas × 100,General Q1 2022,CSV anexo,Base = cuentas deshabilitadas no-spam
+tasa_reversion_apelaciones_pct,2.01,Q1-2022,cuentas restauradas / apelaciones × 100,General Q1 2022,CSV anexo,Definición 'cuentas restauradas/reinstaladas'
+restauradas_sobre_deshabilitadas_pct,0.2158,Q1-2022,cuentas restauradas / cuentas deshabilitadas no-spam × 100,General Q1 2022,derivado,Cota inferior de falsos positivos detectados (solo los que apelan y ganan)
+cuentas_deshabilitadas_no_spam_semana,82005.9,Q1-2022,total no-spam / semanas,General Q1 2022,5,
+cuentas_deshabilitadas_spam_semana,2023608.9,Q1-2022,spam / semanas,General Q1 2022,"6,13",
+fraccion_spam_deshabilitadas_pct,96.1054,Q1-2022,spam / (spam + no-spam) × 100,General Q1 2022,derivado,
+reportes_web_por_cuenta_deshabilitada_no_spam,0.1692,Q1-2022,reportes formulario web / cuentas deshabilitadas no-spam,General Q1 2022,derivado,Canal web; spam excluido
+reportes_web_accionados_pct,24.6427,Q1-2022,reportes accionados / recibidos × 100,General Q1 2022,CSV anexo,
+tasa_apelacion_no_spam_pct,16.89,Q2-2022,apelaciones / base de cuentas × 100,General Q2 2022,CSV anexo,Base = cuentas deshabilitadas no-spam
+tasa_reversion_apelaciones_pct,0.6,Q2-2022,cuentas restauradas / apelaciones × 100,General Q2 2022,CSV anexo,Definición 'cuentas restauradas/reinstaladas'
+restauradas_sobre_deshabilitadas_pct,0.1009,Q2-2022,cuentas restauradas / cuentas deshabilitadas no-spam × 100,General Q2 2022,derivado,Cota inferior de falsos positivos detectados (solo los que apelan y ganan)
+cuentas_deshabilitadas_no_spam_semana,55904.54,Q2-2022,total no-spam / semanas,General Q2 2022,4,
+cuentas_deshabilitadas_spam_semana,2133380.62,Q2-2022,spam / semanas,General Q2 2022,"4,11",
+fraccion_spam_deshabilitadas_pct,97.4464,Q2-2022,spam / (spam + no-spam) × 100,General Q2 2022,derivado,
+reportes_web_por_cuenta_deshabilitada_no_spam,0.2113,Q2-2022,reportes formulario web / cuentas deshabilitadas no-spam,General Q2 2022,derivado,Canal web; spam excluido
+reportes_web_accionados_pct,22.368,Q2-2022,reportes accionados / recibidos × 100,General Q2 2022,CSV anexo,
+tasa_apelacion_no_spam_pct,15.47,Q3-2022,apelaciones / base de cuentas × 100,General Q3 2022,CSV anexo,Base = cuentas deshabilitadas no-spam
+tasa_reversion_apelaciones_pct,4.64,Q3-2022,cuentas restauradas / apelaciones × 100,General Q3 2022,6,Definición 'cuentas restauradas/reinstaladas'
+restauradas_sobre_deshabilitadas_pct,0.7181,Q3-2022,cuentas restauradas / cuentas deshabilitadas no-spam × 100,General Q3 2022,derivado,Cota inferior de falsos positivos detectados (solo los que apelan y ganan)
+cuentas_deshabilitadas_no_spam_semana,14133.56,Q3-2022,total no-spam / semanas,General Q3 2022,4,
+cuentas_deshabilitadas_spam_semana,3843198.15,Q3-2022,spam / semanas,General Q3 2022,"4,12",
+fraccion_spam_deshabilitadas_pct,99.6336,Q3-2022,spam / (spam + no-spam) × 100,General Q3 2022,derivado,
+reportes_web_por_cuenta_deshabilitada_no_spam,0.7249,Q3-2022,reportes formulario web / cuentas deshabilitadas no-spam,General Q3 2022,derivado,Canal web; spam excluido
+reportes_web_accionados_pct,15.14,Q3-2022,reportes accionados / recibidos × 100,General Q3 2022,CSV anexo,
+cuentas_deshabilitadas_no_spam_semana,11708.45,Q4-2022,total no-spam / semanas,General Q4 2022 (citado),5,
+cuentas_deshabilitadas_spam_semana,2801903.92,Q4-2022,spam / semanas,General Q4 2022 (citado),6,
+fraccion_spam_deshabilitadas_pct,99.5839,Q4-2022,spam / (spam + no-spam) × 100,General Q4 2022 (citado),derivado,
+tasa_apelacion_no_spam_pct,21.95,Q1-2023,apelaciones / base de cuentas × 100,General Q1 2023,CSV anexo,Base = cuentas deshabilitadas no-spam
+tasa_reversion_apelaciones_pct,2.04,Q1-2023,cuentas restauradas / apelaciones × 100,General Q1 2023,CSV anexo,Definición 'cuentas restauradas/reinstaladas'
+restauradas_sobre_deshabilitadas_pct,0.4478,Q1-2023,cuentas restauradas / cuentas deshabilitadas no-spam × 100,General Q1 2023,derivado,Cota inferior de falsos positivos detectados (solo los que apelan y ganan)
+cuentas_deshabilitadas_no_spam_semana,13513.55,Q1-2023,total no-spam / semanas,General Q1 2023,5,
+cuentas_deshabilitadas_spam_semana,831749.38,Q1-2023,spam / semanas,General Q1 2023,"6,16",
+fraccion_spam_deshabilitadas_pct,98.4013,Q1-2023,spam / (spam + no-spam) × 100,General Q1 2023,derivado,
+reportes_web_por_cuenta_deshabilitada_no_spam,0.6736,Q1-2023,reportes formulario web / cuentas deshabilitadas no-spam,General Q1 2023,derivado,Canal web; spam excluido
+reportes_web_accionados_pct,15.55,Q1-2023,reportes accionados / recibidos × 100,General Q1 2023,CSV anexo,
+tasa_apelacion_no_spam_pct,10.31,Q2-2023,apelaciones / base de cuentas × 100,General Q2 2023,CSV anexo,Base = cuentas deshabilitadas no-spam
+tasa_reversion_apelaciones_pct,2.35,Q2-2023,cuentas restauradas / apelaciones × 100,General Q2 2023,10,Definición 'cuentas restauradas/reinstaladas'
+restauradas_sobre_deshabilitadas_pct,0.242,Q2-2023,cuentas restauradas / cuentas deshabilitadas no-spam × 100,General Q2 2023,derivado,Cota inferior de falsos positivos detectados (solo los que apelan y ganan)
+cuentas_deshabilitadas_no_spam_semana,22635.0,Q2-2023,total no-spam / semanas,General Q2 2023,6,
+cuentas_deshabilitadas_spam_semana,613179.62,Q2-2023,spam / semanas,General Q2 2023,"6,19",
+fraccion_spam_deshabilitadas_pct,96.44,Q2-2023,spam / (spam + no-spam) × 100,General Q2 2023,derivado,
+reportes_web_por_cuenta_deshabilitada_no_spam,0.6482,Q2-2023,reportes formulario web / cuentas deshabilitadas no-spam,General Q2 2023,derivado,Canal web; spam excluido
+reportes_app_por_cuenta_deshabilitada_no_spam,18.4279,Q2-2023,(reportes en app − manip. plataforma) / cuentas deshabilitadas no-spam,General Q2 2023,derivado,Aproximación: excluir 'manip. plataforma' quita también su parte no-spam
+reportes_web_accionados_pct,12.6037,Q2-2023,reportes accionados / recibidos × 100,General Q2 2023,CSV anexo,
+tasa_apelacion_no_spam_pct,17.79,Q3-2023,apelaciones / base de cuentas × 100,General Q3 2023,CSV anexo,Base = cuentas deshabilitadas no-spam
+tasa_reversion_apelaciones_pct,2.51,Q3-2023,cuentas restauradas / apelaciones × 100,General Q3 2023,9,Definición 'cuentas restauradas/reinstaladas'
+restauradas_sobre_deshabilitadas_pct,0.4465,Q3-2023,cuentas restauradas / cuentas deshabilitadas no-spam × 100,General Q3 2023,derivado,Cota inferior de falsos positivos detectados (solo los que apelan y ganan)
+cuentas_deshabilitadas_no_spam_semana,19817.62,Q3-2023,total no-spam / semanas,General Q3 2023,5,
+cuentas_deshabilitadas_spam_semana,977390.53,Q3-2023,spam / semanas,General Q3 2023,"5,17",
+fraccion_spam_deshabilitadas_pct,98.0127,Q3-2023,spam / (spam + no-spam) × 100,General Q3 2023,derivado,
+reportes_app_por_cuenta_deshabilitada_no_spam,25.1936,Q3-2023,(reportes en app − manip. plataforma) / cuentas deshabilitadas no-spam,General Q3 2023,derivado,Aproximación: excluir 'manip. plataforma' quita también su parte no-spam
+tasa_apelacion_no_spam_pct,13.24,Q4-2023,apelaciones / base de cuentas × 100,General Q4 2023,10,Base = cuentas deshabilitadas no-spam
+tasa_reversion_apelaciones_pct,2.43,Q4-2023,cuentas restauradas / apelaciones × 100,General Q4 2023,11,Definición 'cuentas restauradas/reinstaladas'
+restauradas_sobre_deshabilitadas_pct,0.3219,Q4-2023,cuentas restauradas / cuentas deshabilitadas no-spam × 100,General Q4 2023,derivado,Cota inferior de falsos positivos detectados (solo los que apelan y ganan)
+cuentas_deshabilitadas_no_spam_semana,19406.9,Q4-2023,total no-spam / semanas,General Q4 2023,6,
+cuentas_deshabilitadas_spam_semana,2508843.03,Q4-2023,spam / semanas,General Q4 2023,"6,18",
+fraccion_spam_deshabilitadas_pct,99.2324,Q4-2023,spam / (spam + no-spam) × 100,General Q4 2023,derivado,
+reportes_app_por_cuenta_deshabilitada_no_spam,23.4768,Q4-2023,(reportes en app − manip. plataforma) / cuentas deshabilitadas no-spam,General Q4 2023,derivado,Aproximación: excluir 'manip. plataforma' quita también su parte no-spam
+tasa_apelacion_no_spam_pct,1.85,H1-2024,apelaciones / base de cuentas × 100,General H1 2024,9,Base = cuentas sancionadas distintas (no comparable)
+tasa_reversion_apelaciones_pct,2.59,H1-2024,cuentas restauradas / apelaciones × 100,General H1 2024,9,Definición 'cuentas restauradas/reinstaladas'
+restauradas_sobre_deshabilitadas_pct,0.4775,H1-2024,cuentas restauradas / cuentas deshabilitadas no-spam × 100,General H1 2024,derivado,Cota inferior de falsos positivos detectados (solo los que apelan y ganan)
+cuentas_deshabilitadas_no_spam_semana,13732.92,H1-2024,total no-spam / semanas,General H1 2024,5,
+cuentas_deshabilitadas_spam_semana,1363713.58,H1-2024,spam / semanas,General H1 2024,"5,16",
+fraccion_spam_deshabilitadas_pct,99.003,H1-2024,spam / (spam + no-spam) × 100,General H1 2024,derivado,
+reportes_app_por_cuenta_deshabilitada_no_spam,40.0921,H1-2024,(reportes en app − manip. plataforma) / cuentas deshabilitadas no-spam,General H1 2024,derivado,Aproximación: excluir 'manip. plataforma' quita también su parte no-spam
+dsa_reversion_quejas_pct,16.3643,DSA-2024,quejas con decisión revertida / quejas × 100,DSA 2024 (UE),12,UE; spam y no-spam mezclados
+dsa_fraccion_solo_automatizada_pct,81.5888,DSA-2024,solo automatizado / (solo automatizado + no automatizado) × 100,DSA 2024 (UE),12,
+dsa_reversion_quejas_pct,0.0257,DSA-2025,quejas con decisión revertida / quejas × 100,DSA 2025 (UE),CSV anexo,No fiable en 2025: el desglose solo cubre 638 de 334.874 quejas
+dsa_fraccion_solo_automatizada_pct,2.1865,DSA-2025,solo automatizado / (solo automatizado + no automatizado) × 100,DSA 2025 (UE),CSV anexo,2025: inconsistente (iniciativa propia automatizada > total)
+dsa_restricciones_revertidas_pct,25.6486,DSA-2024,revertidas / (revertidas + confirmadas) × 100,DSA 2024 (UE),13,
+dsa_tasa_error_automatizado_total_pct,6.65,DSA-2024,dato publicado,DSA 2024 (UE),12,
+dsa_tasa_error_automatizado_quejas_internas_pct,11.86,DSA-2024,dato publicado,DSA 2024 (UE),12,
+dsa_tasa_error_automatizado_iniciativa_propia_pct,1.44,DSA-2024,dato publicado,DSA 2024 (UE),12,
+dsa_precision_total_pct,55.1,DSA-2025,dato publicado,DSA 2025 (UE),9,
+dsa_fraccion_falsos_positivos_entre_positivos_total_pct,44.9,DSA-2025,100 − precisión,DSA 2025 (UE),derivado,Falsos positivos / (VP + FP) en decisiones automatizadas
+dsa_recall_total_pct,97.3,DSA-2025,dato publicado,DSA 2025 (UE),9,
+dsa_fraccion_falsos_negativos_total_pct,2.7,DSA-2025,100 − recall,DSA 2025 (UE),derivado,Falsos negativos / (VP + FN)
+dsa_precision_iniciativa_propia_pct,60.0,DSA-2025,dato publicado,DSA 2025 (UE),CSV anexo,
+dsa_fraccion_falsos_positivos_entre_positivos_iniciativa_propia_pct,40.0,DSA-2025,100 − precisión,DSA 2025 (UE),derivado,Falsos positivos / (VP + FP) en decisiones automatizadas
+dsa_recall_iniciativa_propia_pct,96.4,DSA-2025,dato publicado,DSA 2025 (UE),9,
+dsa_fraccion_falsos_negativos_iniciativa_propia_pct,3.6,DSA-2025,100 − recall,DSA 2025 (UE),derivado,Falsos negativos / (VP + FN)
+dsa_precision_avisos_pct,92.3,DSA-2025,dato publicado,DSA 2025 (UE),9,
+dsa_fraccion_falsos_positivos_entre_positivos_avisos_pct,7.7,DSA-2025,100 − precisión,DSA 2025 (UE),derivado,Falsos positivos / (VP + FP) en decisiones automatizadas
+dsa_recall_avisos_pct,90.5,DSA-2025,dato publicado,DSA 2025 (UE),9,
+dsa_fraccion_falsos_negativos_avisos_pct,9.5,DSA-2025,100 − recall,DSA 2025 (UE),derivado,Falsos negativos / (VP + FN)

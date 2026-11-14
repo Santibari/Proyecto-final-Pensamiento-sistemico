@@ -1,0 +1,8 @@
+.claude
+Claude.md
+simulacion/_cache_pysd/
+__pycache__/
+*.vdfx
+*.3vmfx
+__MACOSX/
+.DS_Store
