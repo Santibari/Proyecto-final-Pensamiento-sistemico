@@ -461,12 +461,12 @@ Evidencia: `figuras/evidencia_vensim_actual_units_ok.jpg` y `figuras/evidencia_v
 
 ### 11.3 Modelo con mejora: cambios de parámetros y estructura
 
-| Mejora | Variable | Actual | Mejora |
-|---|---|---|---|
-| 1. Sensibilidad adaptativa | Sensibilidad efectiva | = Sensibilidad del filtro | Se reduce 0,1 por cada unidad de Presion de cola sobre 1 (límites 0,70–0,99) |
-| 2. Dos umbrales (zona gris) | Fraccion zona gris / Revision humana previa | no existe | 5 % de las decisiones automáticas pasan a revisión humana antes de aplicarse |
-| 3. Triage asistido por IA | Productividad de moderadores | 150 | 200 piezas/(moderador·semana) |
-| 4. Gobernanza de reportes | Reduccion de reportes erroneos | no existe | 0,3 |
+| Mejora                      | Variable                                    | Actual                    | Mejora                                                                       |
+| --------------------------- | ------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------- |
+| 1. Sensibilidad adaptativa  | Sensibilidad efectiva                       | = Sensibilidad del filtro | Se reduce 0,1 por cada unidad de Presion de cola sobre 1 (límites 0,70–0,99) |
+| 2. Dos umbrales (zona gris) | Fraccion zona gris / Revision humana previa | no existe                 | 5 % de las decisiones automáticas pasan a revisión humana antes de aplicarse |
+| 3. Triage asistido por IA   | Productividad de moderadores                | 150                       | 200 piezas/(moderador·semana)                                                |
+| 4. Gobernanza de reportes   | Reduccion de reportes erroneos              | no existe                 | 0,3                                                                          |
 
 ### 11.4 Verificación numérica (no es el análisis de resultados)
 

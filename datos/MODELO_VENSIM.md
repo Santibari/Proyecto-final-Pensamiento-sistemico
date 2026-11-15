@@ -8,14 +8,14 @@
 
 ## 1. Qué cambió frente a la versión anterior (pedido del equipo)
 
-| Pedido | Cómo quedó |
-|---|---|
-| Máximo 50 variables | Actual: **48** (6 niveles, 10 flujos, 12 auxiliares, 20 constantes). Mejora: **50** |
-| Todo en una vista | Una sola vista: "Modelo Discord" (en Vensim: View > Fit to Screen para verlo completo) |
-| Flechas curvas | Todas las flechas causales son arcos |
-| Polaridad en todas las flechas | **66 flechas** (actual) y **72** (mejora), todas con + o − |
-| Nombres entendibles | Por ejemplo: "Bloqueos por error" (antes: falsos positivos), "Nocivo que se escapa" (falsos negativos), "Nocivo bloqueado" (verdaderos positivos), "Apelaciones pendientes", "Denuncias pendientes" |
-| Menos complejo, con arquetipos | Se quitaron el ruido aleatorio, los valores iniciales auxiliares, los indicadores de calibración separados y una de las mejoras. Se mantienen los tres arquetipos de clase |
+| Pedido                         | Cómo quedó                                                                                                                                                                                          |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Máximo 50 variables            | Actual: **48** (6 niveles, 10 flujos, 12 auxiliares, 20 constantes). Mejora: **50**                                                                                                                 |
+| Todo en una vista              | Una sola vista: "Modelo Discord" (en Vensim: View > Fit to Screen para verlo completo)                                                                                                              |
+| Flechas curvas                 | Todas las flechas causales son arcos                                                                                                                                                                |
+| Polaridad en todas las flechas | **66 flechas** (actual) y **72** (mejora), todas con + o −                                                                                                                                          |
+| Nombres entendibles            | Por ejemplo: "Bloqueos por error" (antes: falsos positivos), "Nocivo que se escapa" (falsos negativos), "Nocivo bloqueado" (verdaderos positivos), "Apelaciones pendientes", "Denuncias pendientes" |
+| Menos complejo, con arquetipos | Se quitaron el ruido aleatorio, los valores iniciales auxiliares, los indicadores de calibración separados y una de las mejoras. Se mantienen los tres arquetipos de clase                          |
 
 ## 2. Validación
 
