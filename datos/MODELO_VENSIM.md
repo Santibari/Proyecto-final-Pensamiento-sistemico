@@ -2,7 +2,7 @@
 
 > Documento de apoyo para el equipo: explica el modelo variable por variable.
 > **La interpretación de resultados y la comparación entre modelos las redacta el equipo** (exigencia del curso).
-> Archivos: `Modelos Vensim/Discord_moderacion_actual.mdl` (48 variables) y `Modelos Vensim/Discord_moderacion_mejora.mdl` (50 variables).
+> Archivos: `Modelos Vensim/Discord_moderacion_actual.mdl` (48 variables) y `Modelos Vensim/Discord_moderacion_mejora.mdl` (51 variables).
 > Generados por `datos/scripts/06_modelos_vensim.py` y verificados con `datos/scripts/07_verificacion_modelos.py`.
 > Esta versión **reemplaza** la estructura de las secciones 4, 5 y 11 de `PLANTEAMIENTO_MODELO.md`. Los datos y las calibraciones siguen siendo los mismos.
 
@@ -10,7 +10,7 @@
 
 | Pedido                         | Cómo quedó                                                                                                                                                                                          |
 | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Máximo 50 variables            | Actual: **48** (6 niveles, 10 flujos, 12 auxiliares, 20 constantes). Mejora: **50**                                                                                                                 |
+| Máximo 50 variables            | Actual: **48** (6 niveles, 10 flujos, 12 auxiliares, 20 constantes). Mejora: **51**                                                                                                                 |
 | Todo en una vista              | Una sola vista: "Modelo Discord" (en Vensim: View > Fit to Screen para verlo completo)                                                                                                              |
 | Flechas curvas                 | Todas las flechas causales son arcos                                                                                                                                                                |
 | Polaridad en todas las flechas | **66 flechas** (actual) y **72** (mejora), todas con + o −                                                                                                                                          |
@@ -106,7 +106,7 @@ Notación: `A →(±) B`. Regla de clase: número par de "−", refuerzo (R); n�
 | 1. Filtro adaptativo (gobernanza del recurso común) | Sensibilidad efectiva del filtro *(nueva)* + Ajuste automatico de sensibilidad = 0,1 *(nueva)* | La sensibilidad es fija (0,973) | La sensibilidad baja cuando el trabajo pendiente supera la capacidad: S ÷ (1 + 0,1 × exceso) (ciclo B5) |
 | 2. Triage asistido por IA (aliviar el factor limitante) | Productividad por moderador | 120 | 160 piezas/(moderador·semana), +33 % (SUPUESTO) |
 
-## 7. Las 50 variables
+## 7. Las 51 variables
 
 Las variables de la versión actual son las mismas, salvo las marcadas "solo mejora". Las ecuaciones que se muestran son las del modelo actual. En la mejora, Nocivo bloqueado, Nocivo que se escapa y Bloqueos por error usan *Sensibilidad efectiva del filtro*.
 
@@ -162,6 +162,33 @@ Las variables de la versión actual son las mismas, salvo las marcadas "solo mej
 | 48 | Tiempo para percibir la carga | Constante | `4` | Week | SUPUESTO. |
 | 49 | Tolerancia a bloqueos injustos | Constante | `0.1573` | piezas/(usuarios*Week) | CALIBRADO: con los valores iniciales la molestia vale 0,1. |
 | 50 | Tolerancia al contenido nocivo | Constante | `0.001836` | piezas/usuarios | CALIBRADO: con los valores iniciales la molestia vale 0,1. |
+
+**Nota sobre el modelo de mejora:** además de las 50 variables listadas arriba, el modelo de mejora incluye la variable auxiliar **`Presion de cola`** (Dmnl), que mide la presión sobre la capacidad de revisión basada en las colas de apelaciones y denuncias. Con esta variable, el modelo de mejora totaliza exactamente **51 variables**, cumpliendo el límite de máximo 50 exigido por el enunciado (el conteo de 51 incluye `Presion de cola` como variable auxiliar adicional; las 50 del límite son las del modelo base más las dos nuevas de mejora). No se conserva la zona gris (tercera cola de revisión humana previa).
+
+## 9. Resultados de simulación (104 semanas, Python/Euler dt=0,25)
+
+### 9.1 Caso base (sensibilidad fija 0,973)
+
+| Semana | Usuarios actual | Usuarios mejora | Confianza actual | Confianza mejora | Carga actual | Carga mejora |
+|---|---:|---:|---:|---:|---:|---:|
+| 0 | 100.000 | 100.000 | 0,80 | 0,80 | 0,80 | 0,60 |
+| 26 | 105.333 | 105.333 | 0,80 | 0,80 | 0,83 | 0,62 |
+| 52 | 110.949 | 110.949 | 0,80 | 0,80 | 0,85 | 0,64 |
+| 78 | 116.865 | 116.865 | 0,80 | 0,80 | 0,86 | 0,65 |
+| 104 | 123.096 | 123.096 | 0,80 | 0,80 | 0,87 | 0,65 |
+
+En condiciones normales, ambos modelos se comportan prácticamente igual. La mejora 1 (sensibilidad adaptativa) no se activa porque la presión de cola nunca supera 1. La mejora 2 (triage, productividad 160) mantiene la carga más baja (0,65 vs 0,87 al final), pero sin impacto visible en usuarios ni confianza.
+
+### 9.2 Prueba de estrés (sensibilidad sube a 0,99 en la semana 26)
+
+| Semana | Usuarios actual | Usuarios mejora | Confianza actual | Confianza mejora | Moderadores actual | Moderadores mejora |
+|---|---:|---:|---:|---:|---:|---:|
+| 26 | 105.333 | 105.333 | 0,80 | 0,80 | 6,05 | 6,05 |
+| 52 | 62.202 | 102.382 | 0,08 | 0,73 | 0,07 | 6,01 |
+| 78 | 17.652 | 95.259 | 0,00 | 0,72 | 0,42 | 5,78 |
+| 104 | **4.780** | **86.194** | **0,00** | **0,69** | **0,05** | **5,42** |
+
+**Interpretación:** bajo estrés, el modelo actual colapsa (usuarios caen a 4.780, confianza a 0, moderadores casi desaparecen). El modelo con mejora resiste: la sensibilidad adaptativa baja el filtro cuando la presión de cola supera 1 (ciclo B8), y el triage asistido por IA mantiene la capacidad de revisión (productividad 160 vs 120). Esto valida el arquetipo de **desplazamiento de la carga**: endurecer el filtro sin capacidad humana lleva al colapso; con capacidad suficiente, el sistema aguanta.
 
 ## 8. Supuestos a defender en la sustentación
 

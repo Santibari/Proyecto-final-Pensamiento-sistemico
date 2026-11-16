@@ -101,7 +101,7 @@ Si la red bloquea `cdn.discordapp.com` (pasó durante el proyecto), descargue lo
 | Archivo | Contenido |
 |---|---|
 | `Discord_moderacion_actual.mdl` | Situación actual: 48 variables (6 niveles, 10 flujos, 12 auxiliares, 20 constantes), una sola vista, flechas con signo + o − |
-| `Discord_moderacion_mejora.mdl` | Con mejora: 50 variables (filtro de IA adaptativo y triage asistido por IA) |
+| `Discord_moderacion_mejora.mdl` | Con mejora: 51 variables (filtro de IA adaptativo y triage asistido por IA) |
 | `*.vdfx` | Resultados de corridas de Vensim (se regeneran al simular) |
 
 ### Cómo funciona el modelo

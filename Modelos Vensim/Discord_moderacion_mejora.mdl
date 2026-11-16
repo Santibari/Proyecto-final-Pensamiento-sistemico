@@ -3,17 +3,20 @@ Usuarios activos= INTEG (
 	Usuarios que llegan - Usuarios que se van,
 		100000)
 	~	usuarios
-	~	Personas activas en la comunidad representativa de Discord (SUPUESTO: 100.000).
+	~	Personas activas en la comunidad representativa de Discord (SUPUESTO: \
+		100.000).
 	|
 
 Usuarios que llegan=
 	Usuarios activos * Tasa de crecimiento base * Reputacion externa
 	~	usuarios/Week
-	~	Los usuarios atraen a más usuarios (ciclo R1), según la reputación que la comunidad tiene afuera.
+	~	Los usuarios atraen a más usuarios (ciclo R1), según la reputación que \
+		la comunidad tiene afuera.
 	|
 
 Usuarios que se van=
-	Usuarios activos * Tasa de abandono por desconfianza * (1 - Confianza de la comunidad)
+	Usuarios activos * Tasa de abandono por desconfianza * (1 - Confianza de la comunidad\
+		)
 	~	usuarios/Week
 	~	Cuanto menor es la confianza, más usuarios abandonan.
 	|
@@ -33,7 +36,8 @@ Tasa de abandono por desconfianza=
 Reputacion externa=
 	DELAY FIXED(Confianza de la comunidad, Retraso de la reputacion, 0.8)
 	~	Dmnl
-	~	RETRASO DE INFORMACIÓN PURO (DELAY FIXED): la confianza interna tarda semanas en conocerse afuera.
+	~	RETRASO DE INFORMACIÓN PURO (DELAY FIXED): la confianza interna tarda \
+		semanas en conocerse afuera.
 	|
 
 Retraso de la reputacion=
@@ -46,13 +50,15 @@ Confianza de la comunidad= INTEG (
 	Cambio de confianza,
 		0.8)
 	~	Dmnl
-	~	Índice de 0 a 1 (SUPUESTO: los informes no miden confianza). Nivel de información.
+	~	Índice de 0 a 1 (SUPUESTO: los informes no miden confianza). Nivel de \
+		información.
 	|
 
 Cambio de confianza=
 	(Confianza deseada - Confianza de la comunidad) / Tiempo para ajustar la confianza
 	~	1/Week
-	~	La confianza se acerca poco a poco a la confianza deseada (retraso de percepción de primer orden).
+	~	La confianza se acerca poco a poco a la confianza deseada (retraso de \
+		percepción de primer orden).
 	|
 
 Tiempo para ajustar la confianza=
@@ -68,9 +74,11 @@ Confianza deseada=
 	|
 
 Molestia por contenido nocivo=
-	(Nocivo que se escapa / Usuarios activos) * ZIDZ(Denuncias pendientes, Denuncias resueltas) / Tolerancia al contenido nocivo
+	(Nocivo que se escapa / Usuarios activos) * ZIDZ(Denuncias pendientes, Denuncias resueltas\
+		) / Tolerancia al contenido nocivo
 	~	Dmnl
-	~	Contenido nocivo que cada usuario ve, multiplicado por el tiempo que sigue visible mientras la denuncia espera.
+	~	Contenido nocivo que cada usuario ve, multiplicado por el tiempo que sigue \
+		visible mientras la denuncia espera.
 	|
 
 Tolerancia al contenido nocivo=
@@ -80,7 +88,7 @@ Tolerancia al contenido nocivo=
 	|
 
 Molestia por bloqueos injustos=
-	MAX(0, Bloqueos injustos aplicados - Apelaciones aceptadas) / Usuarios activos / Tolerancia a bloqueos injustos
+	MAX(0, Bloqueos por error - Apelaciones aceptadas) / Usuarios activos / Tolerancia a bloqueos injustos
 	~	Dmnl
 	~	Bloqueos a contenido legítimo que nadie corrige, por usuario.
 	|
@@ -94,7 +102,8 @@ Tolerancia a bloqueos injustos=
 Contenido nocivo por usuario=
 	0.02
 	~	piezas/(usuarios*Week)
-	~	SUPUESTO: 1 de cada 1.000 mensajes (20 mensajes por usuario a la semana) es nocivo (no-spam).
+	~	SUPUESTO: 1 de cada 1.000 mensajes (20 mensajes por usuario a la semana) \
+		es nocivo (no-spam).
 	|
 
 Mensajes sanos por usuario=
@@ -112,7 +121,8 @@ Contenido nocivo=
 Sensibilidad del filtro IA=
 	0.973
 	~	Dmnl [0.5,0.999,0.001]
-	~	PALANCA DE POLÍTICA. DATO: el sistema automático detecta 97,3 % del contenido infractor (DSA 2025, p. 9).
+	~	PALANCA DE POLÍTICA. DATO: el sistema automático detecta 97,3 % del \
+		contenido infractor (DSA 2025, p. 9).
 	|
 
 Nocivo bloqueado=
@@ -134,28 +144,34 @@ Factor de error del filtro=
 	|
 
 Bloqueos por error=
-	Usuarios activos * Mensajes sanos por usuario * Factor de error del filtro * Sensibilidad efectiva del filtro / (1 - Sensibilidad efectiva del filtro)
+	Usuarios activos * Mensajes sanos por usuario * Factor de error del filtro * Sensibilidad efectiva del filtro\
+		 / (1 - Sensibilidad efectiva del filtro)
 	~	piezas/Week
-	~	Contenido legítimo bloqueado (falsos positivos). NO LINEAL: crece muy rápido cuando la sensibilidad se acerca a 1.
+	~	Contenido legítimo bloqueado (falsos positivos). NO LINEAL: crece muy \
+		rápido cuando la sensibilidad se acerca a 1.
 	|
 
 Precision del filtro=
 	ZIDZ(Nocivo bloqueado, Nocivo bloqueado + Bloqueos por error)
 	~	Dmnl
-	~	De todo lo bloqueado, qué fracción era realmente nociva. Meta: 0,551 (DSA 2025).
+	~	De todo lo bloqueado, qué fracción era realmente nociva. Meta: 0,551 \
+		(DSA 2025).
 	|
 
 Apelaciones pendientes= INTEG (
 	Apelaciones que llegan - Apelaciones resueltas,
 		177)
 	~	piezas
-	~	Cola EN PARALELO con las denuncias: ambas usan la misma capacidad de revisión.
+	~	Cola EN PARALELO con las denuncias: ambas usan la misma capacidad de \
+		revisión.
 	|
 
 Apelaciones que llegan=
-	DELAY3((Nocivo bloqueado + Bloqueos por error) * (1 - Fraccion zona gris) * Fraccion de bloqueados que apela, Tiempo de reaccion de los usuarios)
+	DELAY3((Nocivo bloqueado + Bloqueos por error) * Fraccion de bloqueados que apela, Tiempo de reaccion de los usuarios\
+		)
 	~	piezas/Week
-	~	RETRASO MATERIAL DE TERCER ORDEN (DELAY3): los usuarios bloqueados tardan en apelar. Solo apelan las decisiones que no pasaron por la revisión humana previa.
+	~	RETRASO MATERIAL DE TERCER ORDEN (DELAY3): los usuarios bloqueados tardan \
+		en apelar.
 	|
 
 Fraccion de bloqueados que apela=
@@ -171,9 +187,11 @@ Tiempo de reaccion de los usuarios=
 	|
 
 Apelaciones resueltas=
-	MIN(Apelaciones pendientes / Tiempo minimo de revision, Capacidad de revision * XIDZ(Apelaciones pendientes, Apelaciones pendientes + Denuncias pendientes + Casos en zona gris, 0.5))
+	MIN(Apelaciones pendientes / Tiempo minimo de revision, Capacidad de revision * XIDZ\
+		(Apelaciones pendientes, Apelaciones pendientes + Denuncias pendientes, 0.5))
 	~	piezas/Week
-	~	La capacidad se reparte entre las tres colas según su tamaño (recurso común).
+	~	La capacidad se reparte entre las dos colas según su tamaño (recurso \
+		común).
 	|
 
 Tiempo minimo de revision=
@@ -191,7 +209,8 @@ Apelaciones aceptadas=
 Probabilidad de corregir un error=
 	0.0532
 	~	Dmnl
-	~	CALIBRADO: reversión inicial 2,39 % (mediana de cuentas restauradas / apelaciones, Q1 2022 - H1 2024).
+	~	CALIBRADO: reversión inicial 2,39 % (mediana de cuentas restauradas / \
+		apelaciones, Q1 2022 - H1 2024).
 	|
 
 Denuncias pendientes= INTEG (
@@ -202,7 +221,8 @@ Denuncias pendientes= INTEG (
 	|
 
 Denuncias que llegan=
-	DELAY1(Nocivo que se escapa * Fraccion de nocivo denunciado, Tiempo de reaccion de los usuarios)
+	DELAY1(Nocivo que se escapa * Fraccion de nocivo denunciado, Tiempo de reaccion de los usuarios\
+		)
 	~	piezas/Week
 	~	RETRASO MATERIAL DE PRIMER ORDEN (DELAY1).
 	|
@@ -214,26 +234,31 @@ Fraccion de nocivo denunciado=
 	|
 
 Denuncias resueltas=
-	MIN(Denuncias pendientes / Tiempo minimo de revision, Capacidad de revision * XIDZ(Denuncias pendientes, Apelaciones pendientes + Denuncias pendientes + Casos en zona gris, 0.5))
+	MIN(Denuncias pendientes / Tiempo minimo de revision, Capacidad de revision * XIDZ(Denuncias pendientes\
+		, Apelaciones pendientes + Denuncias pendientes, 0.5))
 	~	piezas/Week
 	~		|
 
 Capacidad de revision=
 	Moderadores activos * Productividad por moderador
 	~	piezas/Week
-	~	Recurso común que comparten apelaciones y denuncias (tragedia de los comunes).
+	~	Recurso común que comparten apelaciones y denuncias (tragedia de los \
+		comunes).
 	|
 
 Productividad por moderador=
 	160
 	~	piezas/(moderadores*Week)
-	~	MEJORA 2 - Triage asistido por IA: +33 % de productividad (SUPUESTO; actual 120).
+	~	MEJORA 2 - Triage asistido por IA: +33 % de productividad (SUPUESTO; \
+		actual 120).
 	|
 
 Carga percibida=
-	SMOOTH(XIDZ(Apelaciones que llegan + Denuncias que llegan + Revision previa, Capacidad de revision, 10), Tiempo para percibir la carga)
+	SMOOTH(XIDZ(Apelaciones que llegan + Denuncias que llegan, Capacidad de revision, 10\
+		), Tiempo para percibir la carga)
 	~	Dmnl
-	~	RETRASO DE INFORMACIÓN (SMOOTH): trabajo que llega ÷ capacidad, como lo perciben los moderadores con retraso.
+	~	RETRASO DE INFORMACIÓN (SMOOTH): trabajo que llega ÷ capacidad, como lo \
+		perciben los moderadores con retraso.
 	|
 
 Tiempo para percibir la carga=
@@ -282,7 +307,8 @@ Moderadores activos= INTEG (
 Moderadores que renuncian=
 	Moderadores activos * Tasa normal de renuncia * MIN(4, MAX(1, Carga percibida) ^ 2)
 	~	moderadores/Week
-	~	NO LINEAL: por encima de carga 1 el agotamiento multiplica las renuncias (ciclo R2), como máximo por 4 (SUPUESTO).
+	~	NO LINEAL: por encima de carga 1 el agotamiento multiplica las renuncias \
+		(ciclo R2), como máximo por 4 (SUPUESTO).
 	|
 
 Tasa normal de renuncia=
@@ -292,64 +318,26 @@ Tasa normal de renuncia=
 	|
 
 Sensibilidad efectiva del filtro=
-	Sensibilidad del filtro IA / (1 + Ajuste automatico de sensibilidad * MAX(0, Presion de cola - 1))
+	Sensibilidad del filtro IA / (1 + Ajuste automatico de sensibilidad * MAX(0, Presion de cola\
+		 - 1))
 	~	Dmnl
-	~	MEJORA 1 - Sensibilidad adaptativa: el filtro se vuelve menos estricto cuando el trabajo pendiente supera la capacidad.
+	~	MEJORA 1 - Sensibilidad adaptativa: el filtro se vuelve menos estricto \
+		cuando el trabajo pendiente supera la capacidad.
 	|
 
 Ajuste automatico de sensibilidad=
 	0.1
 	~	Dmnl
-	~	SUPUESTO: cuánto baja la sensibilidad por cada unidad de Presion de cola sobre 1. Con 0 la mejora 1 se apaga.
+	~	SUPUESTO: cuánto baja la sensibilidad por cada unidad de Presion de cola \
+		sobre 1. Con 0 la mejora 1 se apaga.
 	|
 
 Presion de cola=
-	XIDZ((Apelaciones pendientes + Denuncias pendientes + Casos en zona gris) / Tiempo minimo de revision, Capacidad de revision, 10)
+	XIDZ((Apelaciones pendientes + Denuncias pendientes) / Tiempo minimo de revision, Capacidad de revision\
+		, 10)
 	~	Dmnl
-	~	Basada en los niveles (no en los flujos) para no crear un ciclo algebraico. Mayor que 1 = la cola no se drena en el tiempo mínimo.
-	|
-
-Casos en zona gris= INTEG (
-	Revision previa - Revisiones previas resueltas,
-		60)
-	~	piezas
-	~	MEJORA 3 - Dos umbrales. Tercera cola EN PARALELO: decisiones dudosas del filtro que esperan revisión humana ANTES de aplicarse. Comparte la capacidad de revisión.
-	|
-
-Revision previa=
-	Fraccion zona gris * (Nocivo bloqueado + Bloqueos por error)
-	~	piezas/Week
-	~	Parte de las decisiones automáticas que se envían a revisión humana antes de aplicarse.
-	|
-
-Revisiones previas resueltas=
-	MIN(Casos en zona gris / Tiempo minimo de revision, Capacidad de revision * XIDZ(Casos en zona gris, Apelaciones pendientes + Denuncias pendientes + Casos en zona gris, 0.5))
-	~	piezas/Week
-	~	Casos de la zona gris que un moderador decide.
-	|
-
-Fraccion zona gris=
-	0.05
-	~	Dmnl [0,0.5,0.01]
-	~	MEJORA 3 (SUPUESTO): 5 % de las decisiones automáticas pasan a revisión humana antes de aplicarse. Con 0 la mejora 3 se apaga.
-	|
-
-Enriquecimiento de la zona gris=
-	4
-	~	Dmnl
-	~	SUPUESTO: la zona gris está cerca del umbral y concentra más errores que el promedio. Con 5 % de decisiones contiene 20 % de los falsos positivos.
-	|
-
-Acierto de la revision previa=
-	0.9
-	~	Dmnl
-	~	SUPUESTO: probabilidad de que el moderador detecte un falso positivo antes de aplicarlo.
-	|
-
-Bloqueos injustos aplicados=
-	Bloqueos por error * (1 - MIN(1, Fraccion zona gris * Enriquecimiento de la zona gris) * Acierto de la revision previa)
-	~	piezas/Week
-	~	Contenido legítimo que sí se bloquea: los falsos positivos del filtro menos los que la revisión previa corrige.
+	~	Basada en los niveles (no en los flujos) para no crear un ciclo \
+		algebraico. Mayor que 1 = la cola no se drena en el tiempo mínimo.
 	|
 
 ********************************************************
@@ -382,277 +370,221 @@ TIME STEP  = 0.25
 \\\---/// Sketch information - do not modify anything except names
 V300  Do not put anything below this section - it will be ignored
 *Modelo Discord
-$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,26,0
-10,1,Usuarios activos,2769,896,66,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,2,Confianza de la comunidad,3458,1205,96,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,3,Apelaciones pendientes,3036,1745,86,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,4,Denuncias pendientes,3023,2136,80,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,5,Moderadores en entrenamiento,2870,2522,106,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,6,Moderadores activos,3350,2522,76,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-12,7,48,2214,896,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,8,10,1,4,0,0,22,0,0,0,-1--1--1,,1|(2596,896)|
-1,9,10,7,100,0,0,22,0,0,0,-1--1--1,,1|(2351,896)|
-11,10,0,2484,896,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,11,Usuarios que llegan,2484,924,68,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-12,12,48,3309,896,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,13,15,12,4,0,0,22,0,0,0,-1--1--1,,1|(3179,896)|
-1,14,15,1,100,0,0,22,0,0,0,-1--1--1,,1|(2941,896)|
-11,15,0,3054,896,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,16,Usuarios que se van,3054,924,68,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-12,17,48,2903,1205,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,18,20,2,4,0,0,22,0,0,0,-1--1--1,,1|(3270,1205)|
-1,19,20,17,100,0,0,22,0,0,0,-1--1--1,,1|(3040,1205)|
-11,20,0,3173,1205,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,21,Cambio de confianza,3173,1224,68,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-12,22,48,2526,1745,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,23,25,3,4,0,0,22,0,0,0,-1--1--1,,1|(2868,1745)|
-1,24,25,22,100,0,0,22,0,0,0,-1--1--1,,1|(2655,1745)|
-11,25,0,2781,1745,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,26,Apelaciones que llegan,2781,1764,78,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-12,27,48,3561,1745,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,28,30,27,4,0,0,22,0,0,0,-1--1--1,,1|(3424,1745)|
-1,29,30,3,100,0,0,22,0,0,0,-1--1--1,,1|(3203,1745)|
-11,30,0,3291,1745,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,31,Apelaciones resueltas,3291,1764,75,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-12,32,48,2513,2136,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,33,35,4,4,0,0,22,0,0,0,-1--1--1,,1|(2858,2136)|
-1,34,35,32,100,0,0,22,0,0,0,-1--1--1,,1|(2642,2136)|
-11,35,0,2768,2136,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,36,Denuncias que llegan,2768,2155,72,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-12,37,48,3548,2136,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,38,40,37,4,0,0,22,0,0,0,-1--1--1,,1|(3411,2136)|
-1,39,40,4,100,0,0,22,0,0,0,-1--1--1,,1|(3187,2136)|
-11,40,0,3278,2136,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,41,Denuncias resueltas,3278,2155,68,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-12,42,48,2435,2522,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,43,45,5,4,0,0,22,0,0,0,-1--1--1,,1|(2707,2522)|
-1,44,45,42,100,0,0,22,0,0,0,-1--1--1,,1|(2542,2522)|
-11,45,0,2645,2522,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,46,Voluntarios nuevos,2645,2541,65,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,47,49,6,4,0,0,22,0,0,0,-1--1--1,,1|(3195,2522)|
-1,48,49,5,100,0,0,22,0,0,0,-1--1--1,,1|(3040,2522)|
-11,49,0,3110,2522,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,50,Moderadores graduados,3110,2541,75,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-12,51,48,3800,2522,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,52,54,51,4,0,0,22,0,0,0,-1--1--1,,1|(3693,2522)|
-1,53,54,6,100,0,0,22,0,0,0,-1--1--1,,1|(3505,2522)|
-11,54,0,3590,2522,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,55,Moderadores que renuncian,3590,2541,88,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,56,Tasa de crecimiento base,2277,785,85,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,57,Reputacion externa,2424,1013,65,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,58,Retraso de la reputacion,2165,1000,85,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,59,Tasa de abandono por desconfianza,3281,712,114,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,60,Tiempo para ajustar la confianza,2860,1128,111,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,61,Confianza deseada,2497,1336,62,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,62,Molestia por contenido nocivo,2086,1411,101,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,63,Tolerancia al contenido nocivo,1772,1394,105,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,64,Molestia por bloqueos injustos,3529,1356,105,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,65,Tolerancia a bloqueos injustos,3831,1329,105,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,66,Contenido nocivo por usuario,1994,1606,98,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,67,Contenido nocivo,2013,1743,58,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,68,Sensibilidad del filtro IA,2051,1872,91,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,69,Nocivo bloqueado,2288,1863,58,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,70,Nocivo que se escapa,2242,1721,72,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,71,Mensajes sanos por usuario,2147,2123,91,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,72,Factor de error del filtro,2378,2128,91,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,73,Bloqueos por error,2273,2006,65,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,74,Precision del filtro,2547,1587,72,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,75,Fraccion de bloqueados que apela,2752,1607,111,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,76,Tiempo de reaccion de los usuarios,2772,1935,118,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,77,Fraccion de nocivo denunciado,2659,2256,101,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,78,Apelaciones aceptadas,3533,1627,75,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,79,Probabilidad de corregir un error,3675,1838,114,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,80,Tiempo minimo de revision,3294,1949,88,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,81,Capacidad de revision,3397,2267,75,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,82,Productividad por moderador,3624,2258,95,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,83,Carga percibida,3886,2075,55,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,84,Tiempo para percibir la carga,4132,2038,101,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,85,Tasa de voluntariado,2608,2711,72,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,86,Tiempo de entrenamiento,3171,2670,81,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,87,Tasa normal de renuncia,3679,2639,81,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,88,56,11,1,0,43,0,0,64,0,-1--1--1,,1|(2438,810)|
-1,89,57,11,1,0,43,0,0,64,0,-1--1--1,,1|(2462,974)|
-1,90,1,11,1,0,43,0,0,64,0,-1--1--1,,1|(2579,828)|
-1,91,59,16,1,0,43,0,0,64,0,-1--1--1,,1|(3083,790)|
-1,92,2,16,1,0,45,0,0,64,0,-1--1--1,,1|(3345,1014)|
-1,93,1,16,1,0,43,0,0,64,0,-1--1--1,,1|(2910,1021)|
-1,94,2,57,1,0,43,0,0,64,0,-1--1--1,,1|(2730,1381)|
-1,95,58,57,1,0,45,0,0,64,0,-1--1--1,,1|(2314,1113)|
-1,96,60,21,1,0,45,0,0,64,0,-1--1--1,,1|(3125,1094)|
-1,97,2,21,1,0,45,0,0,64,0,-1--1--1,,1|(3298,1136)|
-1,98,61,21,1,0,43,0,0,64,0,-1--1--1,,1|(2892,1325)|
-1,99,64,61,1,0,45,0,0,64,0,-1--1--1,,1|(2979,1462)|
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,87,0
+10,1,Usuarios activos,1314,-568,66,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,Confianza de la comunidad,2003,-259,96,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,3,Apelaciones pendientes,1581,281,86,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,4,Denuncias pendientes,1587,913,80,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,5,Moderadores en entrenamiento,1581,1616,106,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,6,Moderadores activos,2061,1616,76,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+12,7,48,759,-568,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,1,4,0,0,22,0,0,0,-1--1--1,,1|(1141,-568)|
+1,9,10,7,100,0,0,22,0,0,0,-1--1--1,,1|(896,-568)|
+11,10,0,1029,-568,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,Usuarios que llegan,1029,-540,68,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,12,48,1854,-568,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,13,15,12,4,0,0,22,0,0,0,-1--1--1,,1|(1724,-568)|
+1,14,15,1,100,0,0,22,0,0,0,-1--1--1,,1|(1486,-568)|
+11,15,0,1599,-568,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,16,Usuarios que se van,1599,-540,68,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,17,48,1448,-259,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,18,20,2,4,0,0,22,0,0,0,-1--1--1,,1|(1815,-259)|
+1,19,20,17,100,0,0,22,0,0,0,-1--1--1,,1|(1585,-259)|
+11,20,0,1718,-259,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,21,Cambio de confianza,1718,-240,68,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,22,48,1071,281,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,23,25,3,4,0,0,22,0,0,0,-1--1--1,,1|(1413,281)|
+1,24,25,22,100,0,0,22,0,0,0,-1--1--1,,1|(1200,281)|
+11,25,0,1326,281,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,26,Apelaciones que llegan,1326,300,78,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,27,48,2106,281,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,28,30,27,4,0,0,22,0,0,0,-1--1--1,,1|(1969,281)|
+1,29,30,3,100,0,0,22,0,0,0,-1--1--1,,1|(1748,281)|
+11,30,0,1836,281,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,31,Apelaciones resueltas,1836,300,75,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,32,48,1077,913,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,33,35,4,4,0,0,22,0,0,0,-1--1--1,,1|(1422,913)|
+1,34,35,32,100,0,0,22,0,0,0,-1--1--1,,1|(1206,913)|
+11,35,0,1332,913,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,36,Denuncias que llegan,1332,932,72,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,37,48,2112,913,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,38,40,37,4,0,0,22,0,0,0,-1--1--1,,1|(1975,913)|
+1,39,40,4,100,0,0,22,0,0,0,-1--1--1,,1|(1751,913)|
+11,40,0,1842,913,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,41,Denuncias resueltas,1842,932,68,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,42,48,1146,1616,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,43,45,5,4,0,0,22,0,0,0,-1--1--1,,1|(1418,1616)|
+1,44,45,42,100,0,0,22,0,0,0,-1--1--1,,1|(1253,1616)|
+11,45,0,1356,1616,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,46,Voluntarios nuevos,1356,1635,65,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,47,49,6,4,0,0,22,0,0,0,-1--1--1,,1|(1906,1616)|
+1,48,49,5,100,0,0,22,0,0,0,-1--1--1,,1|(1751,1616)|
+11,49,0,1821,1616,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,50,Moderadores graduados,1821,1635,75,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,51,48,2511,1616,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,52,54,51,4,0,0,22,0,0,0,-1--1--1,,1|(2404,1616)|
+1,53,54,6,100,0,0,22,0,0,0,-1--1--1,,1|(2216,1616)|
+11,54,0,2301,1616,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,55,Moderadores que renuncian,2301,1635,88,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,56,Tasa de crecimiento base,822,-679,85,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,57,Reputacion externa,969,-451,65,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,58,Retraso de la reputacion,710,-464,85,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,59,Tasa de abandono por desconfianza,1826,-752,114,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,60,Tiempo para ajustar la confianza,1405,-336,111,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,61,Confianza deseada,1042,-128,62,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,62,Molestia por contenido nocivo,690,-128,101,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,63,Tolerancia al contenido nocivo,406,-160,73,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,64,Molestia por bloqueos injustos,1153,-270,105,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,65,Tolerancia a bloqueos injustos,801,-270,105,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,66,Contenido nocivo por usuario,554,84,77,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,67,Contenido nocivo,659,7,58,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,68,Sensibilidad del filtro IA,566,309,91,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,69,Nocivo bloqueado,654,261,58,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,70,Nocivo que se escapa,814,165,72,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,71,Mensajes sanos por usuario,859,784,91,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,72,Factor de error del filtro,1084,683,91,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,73,Bloqueos por error,742,607,65,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,74,Precision del filtro,1092,123,72,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,75,Fraccion de bloqueados que apela,1361,91,95,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,76,Tiempo de reaccion de los usuarios,1317,471,118,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,77,Fraccion de nocivo denunciado,1223,1033,101,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,78,Apelaciones aceptadas,1857,154,75,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,79,Probabilidad de corregir un error,2220,374,114,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,80,Tiempo minimo de revision,1839,485,88,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,81,Capacidad de revision,2233,1196,75,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,82,Productividad por moderador,2486,1173,95,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,83,Carga percibida,2401,237,55,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,84,Tiempo para percibir la carga,2488,397,101,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,85,Tasa de voluntariado,1357,1792,72,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,86,Tiempo de entrenamiento,1882,1764,81,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,87,Tasa normal de renuncia,2390,1733,81,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,88,56,11,1,0,43,0,0,64,0,-1--1--1,,1|(983,-654)|
+1,89,57,11,1,0,43,0,0,64,0,-1--1--1,,1|(1007,-490)|
+1,90,1,11,1,0,43,0,0,64,0,-1--1--1,,1|(1124,-636)|
+1,91,59,16,1,0,43,0,0,64,0,-1--1--1,,1|(1628,-674)|
+1,92,2,16,1,0,45,0,0,64,0,-1--1--1,,1|(1890,-450)|
+1,93,1,16,1,0,43,0,0,64,0,-1--1--1,,1|(1455,-443)|
+1,94,2,57,1,0,43,0,0,64,0,-1--1--1,,1|(1275,-83)|
+1,95,58,57,1,0,45,0,0,64,0,-1--1--1,,1|(859,-351)|
+1,96,60,21,1,0,45,0,0,64,0,-1--1--1,,1|(1670,-370)|
+1,97,2,21,1,0,45,0,0,64,0,-1--1--1,,1|(1843,-328)|
+1,98,61,21,1,0,43,0,0,64,0,-1--1--1,,1|(1437,-139)|
+1,99,64,61,1,0,45,0,0,64,0,-1--1--1,,1|(1108,-178)|
 1,100,62,61,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
 1,101,63,62,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
 1,102,70,62,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,103,4,62,1,0,43,0,0,64,0,-1--1--1,,1|(1819,2234)|
-1,104,41,62,1,0,45,0,0,64,0,-1--1--1,,1|(2446,2907)|
-1,105,1,62,1,0,45,0,0,64,0,-1--1--1,,1|(1937,823)|
+1,103,4,62,1,0,43,0,0,64,0,-1--1--1,,1|(200,746)|
+1,104,41,62,1,0,45,0,0,64,0,-1--1--1,,1|(776,1584)|
+1,105,1,62,1,0,45,0,0,64,0,-1--1--1,,1|(572,-655)|
 1,106,65,64,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
 1,107,78,64,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,108,1,64,1,0,45,0,0,64,0,-1--1--1,,1|(3499,688)|
+1,108,1,64,1,0,45,0,0,64,0,-1--1--1,,1|(1132,-403)|
 1,109,66,67,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,110,1,67,1,0,43,0,0,64,0,-1--1--1,,1|(1179,1391)|
+1,110,1,67,1,0,43,0,0,64,0,-1--1--1,,1|(61,-339)|
 1,111,67,69,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,112,67,70,1,0,43,0,0,64,0,-1--1--1,,1|(2115,1736)|
+1,112,67,70,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
 1,113,71,73,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
 1,114,72,73,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,115,1,73,1,0,43,0,0,64,0,-1--1--1,,1|(1603,1434)|
-1,116,73,74,1,0,45,0,0,64,0,-1--1--1,,1|(2449,1825)|
-1,117,69,74,1,0,43,0,0,64,0,-1--1--1,,1|(2443,1753)|
+1,115,1,73,1,0,43,0,0,64,0,-1--1--1,,1|(43,-30)|
+1,116,73,74,1,0,45,0,0,64,0,-1--1--1,,1|(961,401)|
+1,117,69,74,1,0,43,0,0,64,0,-1--1--1,,1|(886,233)|
 1,118,76,26,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
 1,119,75,26,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,120,73,26,1,0,43,0,0,64,0,-1--1--1,,1|(2541,1936)|
-1,121,69,26,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
+1,120,73,26,1,0,43,0,0,64,0,-1--1--1,,1|(1053,512)|
+1,121,69,26,1,0,43,0,0,64,0,-1--1--1,,1|(1191,50)|
 1,122,80,31,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,123,3,31,1,0,43,0,0,64,0,-1--1--1,,1|(3150,1840)|
-1,124,81,31,1,0,43,0,0,64,0,-1--1--1,,1|(3395,2006)|
-1,125,4,31,1,0,45,0,0,64,0,-1--1--1,,1|(3193,1975)|
-1,126,79,78,1,0,43,0,0,64,0,-1--1--1,,1|(3667,1722)|
-1,127,31,78,1,0,43,0,0,64,0,-1--1--1,,1|(3424,1727)|
-1,128,74,78,1,0,45,0,0,64,0,-1--1--1,,1|(2941,1500)|
+1,123,3,31,1,0,43,0,0,64,0,-1--1--1,,1|(1695,376)|
+1,124,81,31,1,0,43,0,0,64,0,-1--1--1,,1|(2473,680)|
+1,125,4,31,1,0,45,0,0,64,0,-1--1--1,,1|(1771,627)|
+1,126,79,78,1,0,43,0,0,64,0,-1--1--1,,1|(2129,207)|
+1,127,31,78,1,0,43,0,0,64,0,-1--1--1,,1|(1870,231)|
+1,128,74,78,1,0,45,0,0,64,0,-1--1--1,,1|(1389,21)|
 1,129,76,36,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,130,77,36,1,0,43,0,0,64,0,-1--1--1,,1|(2755,2219)|
-1,131,70,36,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
+1,130,77,36,1,0,43,0,0,64,0,-1--1--1,,1|(1319,996)|
+1,131,70,36,1,0,43,0,0,64,0,-1--1--1,,1|(-127,770)|
 1,132,80,41,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,133,3,41,1,0,45,0,0,64,0,-1--1--1,,1|(3115,1982)|
-1,134,81,41,1,0,43,0,0,64,0,-1--1--1,,1|(3346,2201)|
-1,135,4,41,1,0,43,0,0,64,0,-1--1--1,,1|(3164,2243)|
+1,133,3,41,1,0,45,0,0,64,0,-1--1--1,,1|(1643,645)|
+1,134,81,41,1,0,43,0,0,64,0,-1--1--1,,1|(2061,1034)|
+1,135,4,41,1,0,43,0,0,64,0,-1--1--1,,1|(1728,1020)|
 1,136,82,81,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,137,6,81,1,0,43,0,0,64,0,-1--1--1,,1|(3395,2399)|
-1,138,84,83,1,0,45,0,0,64,0,-1--1--1,,1|(4012,2022)|
-1,139,26,83,1,0,43,0,0,64,0,-1--1--1,,1|(3557,1521)|
-1,140,81,83,1,0,45,0,0,64,0,-1--1--1,,1|(3626,2141)|
-1,141,36,83,1,0,43,0,0,64,0,-1--1--1,,1|(4569,2825)|
-1,142,2,46,1,0,43,0,0,64,0,-1--1--1,,1|(4275,2757)|
+1,137,6,81,1,0,43,0,0,64,0,-1--1--1,,1|(2172,1422)|
+1,138,84,83,1,0,45,0,0,64,0,-1--1--1,,1|(2466,310)|
+1,139,26,83,1,0,43,0,0,64,0,-1--1--1,,1|(1940,25)|
+1,140,81,83,1,0,45,0,0,64,0,-1--1--1,,1|(2264,709)|
+1,141,36,83,1,0,43,0,0,64,0,-1--1--1,,1|(3494,607)|
+1,142,2,46,1,0,43,0,0,64,0,-1--1--1,,1|(3451,1448)|
 1,143,85,46,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,144,1,46,1,0,43,0,0,64,0,-1--1--1,,1|(1073,1333)|
-1,145,5,50,1,0,43,0,0,64,0,-1--1--1,,1|(2979,2628)|
-1,146,86,50,1,0,45,0,0,64,0,-1--1--1,,1|(3141,2611)|
-1,147,87,55,1,0,43,0,0,64,0,-1--1--1,,1|(3633,2593)|
-1,148,6,55,1,0,43,0,0,64,0,-1--1--1,,1|(3464,2616)|
-1,149,83,55,1,0,43,0,0,64,0,-1--1--1,,1|(3920,2412)|
-12,150,0,2627,860,23,23,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+1,144,1,46,1,0,43,0,0,64,0,-1--1--1,,1|(-882,229)|
+1,145,5,50,1,0,43,0,0,64,0,-1--1--1,,1|(1690,1722)|
+1,146,86,50,1,0,45,0,0,64,0,-1--1--1,,1|(1852,1705)|
+1,147,87,55,1,0,43,0,0,64,0,-1--1--1,,1|(2344,1687)|
+1,148,6,55,1,0,43,0,0,64,0,-1--1--1,,1|(2175,1710)|
+1,149,83,55,1,0,43,0,0,64,0,-1--1--1,,1|(2889,944)|
+12,150,0,1172,-604,23,23,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
 R1
-12,151,0,2912,948,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,151,0,1457,-516,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B1
-12,152,0,5138,1053,140,57,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,152,0,4438,-908,140,57,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 R1: Usuarios activos → Usuarios que llegan → Usuarios activos
-12,153,0,4727,1072,136,40,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,153,0,4027,-889,136,40,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B1: Usuarios activos → Usuarios que se van → Usuarios activos
-12,154,0,3157,2189,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,154,0,1721,966,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B4
-12,155,0,3167,1795,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,155,0,1712,331,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B3
-12,156,0,3462,2566,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,156,0,2173,1660,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B6
-12,157,0,3002,2577,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,157,0,1713,1671,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B5
-12,158,0,3308,1173,22,22,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,158,0,1853,-291,22,22,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B2
-12,159,0,4725,1159,141,29,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,159,0,4025,-802,141,29,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B2: Confianza de la comunidad → Cambio de confianza → Confianza de la comunidad
-12,160,0,4730,1242,142,35,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,160,0,4030,-719,142,35,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B3: Apelaciones Pendientes → Apelaciones Resueltas → Apelaciones Pendientes
-12,161,0,4725,1326,139,38,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,161,0,4025,-635,139,38,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B4: Denuncias pendientes → Denuncias resueltas → Denuncias pendientes
-12,162,0,4728,1436,148,35,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,162,0,4028,-525,148,35,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B5: Moderadores en entrenamiento → Moderadores graduados → Moderadores en entrenamiento 
-12,163,0,4731,1555,154,47,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,163,0,4031,-406,154,47,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B6: Moderadores activos → Moderadores que renuncian → Moderadores activos
-12,164,0,3672,2354,27,27,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-R2
-12,165,0,5153,1164,158,40,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,164,0,4453,-797,158,40,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 R2: Moderadores activos → Capacidad de revision → Carga percibida → Moderadores que renuncian → Moderadores activos
-12,166,0,4752,1675,186,50,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,165,0,4052,-286,186,50,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 B7: Usuarios activos → Contenido nocivo → Nocivo que se escapa → Denuncias que llegan → Denuncias pendientes → Molestia por contenido nocivo → Confianza deseada → Cambio de confianza → Confianza de la comunidad → Usuarios que se van → Usuarios activos
-12,167,0,1634,576,45,45,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B7
-12,168,48,2526,2950,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,169,Casos en zona gris,3036,2950,86,24,3,3,0,0,0,0,0,0,0,0,0,0,0,0
-11,170,0,2781,2950,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,171,Revision previa,2781,2969,60,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-12,172,48,3561,2950,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-11,173,0,3291,2950,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,174,Revisiones previas resueltas,3291,2969,90,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,175,170,169,4,0,0,22,0,0,0,-1--1--1,,1|(2908,2950)|
-1,176,170,168,100,0,0,22,0,0,0,-1--1--1,,1|(2653,2950)|
-1,177,173,172,4,0,0,22,0,0,0,-1--1--1,,1|(3426,2950)|
-1,178,173,169,100,0,0,22,0,0,0,-1--1--1,,1|(3163,2950)|
-10,179,Sensibilidad efectiva del filtro,2154,1852,179,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,180,Ajuste automatico de sensibilidad,2154,1942,184,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,181,Presion de cola,3047,2517,84,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,182,Fraccion zona gris,2500,3120,100,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,183,Enriquecimiento de la zona gris,2800,3120,173,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,184,Acierto de la revision previa,3100,3120,162,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,185,Bloqueos injustos aplicados,2901,1681,151,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,186,68,179,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,187,181,179,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,188,180,179,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,189,179,69,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,190,179,70,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,191,179,73,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,192,3,181,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,193,4,181,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,194,169,181,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,195,80,181,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,196,81,181,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,197,69,171,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,198,73,171,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,199,182,171,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,200,171,83,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,201,169,174,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,202,80,174,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,203,81,174,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,204,3,174,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,205,4,174,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,206,169,31,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,207,169,41,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,208,182,26,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,209,73,185,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-1,210,182,185,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,211,183,185,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,212,184,185,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
-1,213,185,64,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
-12,214,0,2772,1873,25,25,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-R3
-12,215,0,4730,1865,160,151,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+10,166,Sensibilidad efectiva del filtro,845,360,92,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,167,Ajuste automatico de sensibilidad,657,455,78,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,168,Presion de cola,1591,1182,84,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,169,68,166,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
+1,170,168,166,1,0,45,0,0,64,0,-1--1--1,,1|(37,1144)|
+1,171,167,166,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
+1,172,166,69,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
+1,173,166,70,0,0,45,0,0,64,0,-1--1--1,,1|(0,0)|
+1,174,166,73,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
+1,175,3,168,1,0,43,0,0,64,0,-1--1--1,,1|(2997,854)|
+1,176,4,168,0,0,43,0,0,64,0,-1--1--1,,1|(0,0)|
+1,177,80,168,1,0,45,0,0,64,0,-1--1--1,,1|(2205,747)|
+1,178,81,168,1,0,45,0,0,64,0,-1--1--1,,1|(1932,1322)|
+12,179,0,4466,-678,145,26,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 R3: Confianza de la comunidad → Voluntarios nuevos → Moderadores en entrenamiento → Moderadores graduados → Moderadores activos → Capacidad de revision → Denuncias resueltas → Molestia por contenido nocivo → Confianza deseada → Cambio de confianza → Confianza de la comunidad
-12,216,0,2600,2119,25,25,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-R4
-12,217,0,4730,2000,160,86,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+12,180,0,4477,-514,117,42,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
 R4: Presion de cola → Sensibilidad efectiva del filtro → Nocivo que se escapa → Denuncias que llegan → Denuncias pendientes → Presion de cola
-12,218,0,2901,1451,25,25,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B8
-12,219,0,4730,2121,160,125,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B8: Usuarios activos → Bloqueos por error → Bloqueos injustos aplicados → Molestia por bloqueos injustos → Confianza deseada → Cambio de confianza → Confianza de la comunidad → Usuarios que se van → Usuarios activos
-12,220,0,2946,1451,25,25,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B9
-12,221,0,4730,2269,160,138,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B9: Usuarios activos → Bloqueos por error → Bloqueos injustos aplicados → Molestia por bloqueos injustos → Confianza deseada → Cambio de confianza → Confianza de la comunidad → Reputacion externa → Usuarios que llegan → Usuarios activos
-12,222,0,2735,1525,25,25,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B10
-12,223,0,4730,2429,160,151,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B10: Usuarios activos → Contenido nocivo → Nocivo que se escapa → Denuncias que llegan → Denuncias pendientes → Molestia por contenido nocivo → Confianza deseada → Cambio de confianza → Confianza de la comunidad → Reputacion externa → Usuarios que llegan → Usuarios activos
-12,224,0,3163,2959,25,25,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B11
-12,225,0,4730,2544,160,47,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B11: Casos en zona gris → Revisiones previas resueltas → Casos en zona gris
-12,226,0,2600,2161,25,25,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B12
-12,227,0,4730,2627,160,86,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B12: Presion de cola → Sensibilidad efectiva del filtro → Bloqueos por error → Apelaciones que llegan → Apelaciones pendientes → Presion de cola
-12,228,0,2600,2410,25,25,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B13
-12,229,0,4730,2729,160,86,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
-B13: Presion de cola → Sensibilidad efectiva del filtro → Bloqueos por error → Revision previa → Casos en zona gris → Presion de cola
+12,181,0,4102,-163,210,51,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+B8: Usuarios activos → Contenido nocivo → Nocivo que se escapa → Denuncias que llegan → Denuncias pendientes → Molestia por contenido nocivo → Confianza deseada → Cambio de confianza → Confianza de la comunidad → Reputacion externa → Usuarios que llegan → Usuarios activos
+12,182,0,4114,-30,217,51,8,7,0,0,-1,0,0,0,0,0,0,0,0,0
+B9: Presion de cola → Sensibilidad efectiva del filtro → Bloqueos por error → Apelaciones que llegan → Apelaciones pendientes → Presion de cola
+1,183,73,64,1,0,0,0,0,64,0,-1--1--1,,1|(1988,-445)|
 ///---\\\
 :L<%^E!@
-5:Confianza deseada
-19:26,0
+1:actualizacion mejora.vdfx
+4:Time
+5:Sensibilidad del filtro IA
+9:actualizacion mejora
+19:87,0
 24:0
-25:0
-26:0
+25:104
+26:104
+31:0,ReferenceMode
 23:0
 15:0,0,0,0,0,0
 27:0,

@@ -457,16 +457,12 @@ Evidencia: `figuras/evidencia_vensim_actual_units_ok.jpg` y `figuras/evidencia_v
 | Fraccion danina efectiva con `RANDOM NORMAL` | Variabilidad que pide el enunciado |
 | Valores iniciales constantes para colas y retrasos (`Cola de apelaciones inicial` = 188, `Cola de casos inicial` = 61 / 106, `Apelaciones iniciales` = 552 / 525, `Reportes iniciales` = 181 / 135, `Carga percibida inicial` = 0,8) | Evitan la inicialización simultánea, que Vensim marca como error, y el aviso ACTIVE_INITIAL causado por el ruido aleatorio |
 | La sensibilidad adaptativa (mejora) responde a la **Presion de cola** = (colas ÷ tiempo mínimo) ÷ capacidad | En la verificación, la versión basada en la carga percibida casi no reaccionaba frente al trabajo acumulado |
-| Mejora 4: **Reduccion de reportes erroneos** = 0,3 (SUPUESTO) | Gobernanza del recurso común (respuesta al arquetipo de tragedia de los comunes) |
-
 ### 11.3 Modelo con mejora: cambios de parámetros y estructura
 
 | Mejora                      | Variable                                    | Actual                    | Mejora                                                                       |
 | --------------------------- | ------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------- |
-| 1. Sensibilidad adaptativa  | Sensibilidad efectiva                       | = Sensibilidad del filtro | Se reduce 0,1 por cada unidad de Presion de cola sobre 1 (límites 0,70–0,99) |
-| 2. Dos umbrales (zona gris) | Fraccion zona gris / Revision humana previa | no existe                 | 5 % de las decisiones automáticas pasan a revisión humana antes de aplicarse |
-| 3. Triage asistido por IA   | Productividad de moderadores                | 150                       | 200 piezas/(moderador·semana)                                                |
-| 4. Gobernanza de reportes   | Reduccion de reportes erroneos              | no existe                 | 0,3                                                                          |
+| 1. Sensibilidad adaptativa  | Sensibilidad efectiva del filtro            | = Sensibilidad del filtro | Se reduce 0,1 por cada unidad de Presion de cola sobre 1 (límites 0,70–0,99) |
+| 2. Triage asistido por IA   | Productividad por moderador                 | 120                       | 160 piezas/(moderador·semana) (+33 %, SUPUESTO)                              |
 
 ### 11.4 Verificación numérica (no es el análisis de resultados)
 

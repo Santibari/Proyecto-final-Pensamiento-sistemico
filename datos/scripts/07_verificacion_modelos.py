@@ -29,6 +29,8 @@ PROC, FIG = BASE / "datos" / "processed", BASE / "datos" / "figuras"
 def leer_mdl(ruta):
     texto = ruta.read_text(encoding="utf-8").split("\\\\\\---///")[0]
     texto = texto.replace("{UTF-8}", "")
+    # quitar caracteres de continuación de línea de Vensim (\ al final de línea)
+    texto = texto.replace("\\\n", " ")
     eqs = {}
     for bloque in texto.split("|"):
         if "=" not in bloque or ".Control" in bloque:
@@ -245,7 +247,10 @@ def verificar_signos(eqs, archivo):
         org, dst = nombres.get(c[2]), nombres.get(c[3])
         if org is None or dst is None:
             continue
-        signo = {"43": "+", "45": "-"}[c[6]]
+        signo = c[6]
+        if signo not in ("43", "45"):
+            continue  # conexión sin signo válido (etiqueta huérfana del dibujo)
+        signo = {"43": "+", "45": "-"}[signo]
         derivadas = []
         m = Modelo(eqs)
         for n in m.nombres:
